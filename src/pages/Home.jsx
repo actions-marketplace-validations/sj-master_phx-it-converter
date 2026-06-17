@@ -227,6 +227,12 @@ export default function Home() {
             >
               &#9749; Sponsor development or buy me a coffee
             </a>
+
+            <div className="flex items-center justify-center gap-4 mt-3">
+              <a href="/terms" className="text-xs text-foreground/25 hover:text-primary/60 transition-colors">Terms of Service</a>
+              <span className="text-foreground/15">·</span>
+              <a href="/privacy" className="text-xs text-foreground/25 hover:text-primary/60 transition-colors">Privacy Policy</a>
+            </div>
           </div>
 
           {/* Quote generator */}
