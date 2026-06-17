@@ -1,0 +1,187 @@
+name: PHX-IT Converter
+description: Convert any image to ICO, PNG, favicons, Apple touch icons, and Android icons — all 100% client-side with no uploads
+author: PHX-IT Phoenix (Skyler Jones)
+
+branding:
+  icon: image
+  color: purple
+
+inputs:
+  source:
+    description: Path to the source image file (PNG, JPG, WebP, BMP, SVG)
+    required: true
+  formats:
+    description: Comma-separated list of output formats (ico, png, jpg, webp, bmp)
+    required: false
+    default: ico,png
+  sizes:
+    description: Comma-separated list of output sizes in pixels (e.g. "16,32,48,64,128,256")
+    required: false
+    default: 16,32,48,64,128,256
+  output_dir:
+    description: Directory to write converted files to
+    required: false
+    default: ./icons
+  apple:
+    description: Also generate Apple touch icon sizes (57,60,72,76,114,120,144,152,180)
+    required: false
+    default: 'false'
+  android:
+    description: Also generate Android icon sizes (192,512)
+    required: false
+    default: 'false'
+  zip:
+    description: Bundle all output files into a single icons.zip archive
+    required: false
+    default: 'false'
+  favicon_html:
+    description: Generate a favicon.html snippet with all link/meta tags
+    required: false
+    default: 'false'
+
+outputs:
+  files:
+    description: List of generated file paths (one per line)
+  count:
+    description: Total number of files generated
+  zip_path:
+    description: Path to the ZIP archive, if zip input was true
+  html_snippet:
+    description: HTML snippet with favicon link/meta tags, if favicon_html was true
+
+runs:
+  using: composite
+  steps:
+    - name: Validate source image
+      shell: bash
+      run: |
+        if [ ! -f "${{ inputs.source }}" ]; then
+          echo "❌ Source image not found: ${{ inputs.source }}"
+          exit 1
+        fi
+        echo "✅ Source image found: ${{ inputs.source }}"
+
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install sharp for image processing
+      shell: bash
+      run: npm install sharp@^0.33.0
+
+    - name: Create output directory
+      shell: bash
+      run: mkdir -p "${{ inputs.output_dir }}"
+
+    - name: Convert images
+      shell: bash
+      run: |
+        node -e "
+        const sharp = require('sharp');
+        const fs = require('fs');
+        const path = require('path');
+        const crypto = require('crypto');
+
+        const source = '${{ inputs.source }}';
+        const outputDir = '${{ inputs.output_dir }}';
+        const formats = '${{ inputs.formats }}'.split(',').map(f => f.trim());
+        const sizes = '${{ inputs.sizes }}'.split(',').map(s => parseInt(s.trim()));
+        const appleSizes = ${{ inputs.apple }} ? [57,60,72,76,114,120,144,152,180] : [];
+        const androidSizes = ${{ inputs.android }} ? [192,512] : [];
+        const allSizes = [...new Set([...sizes, ...appleSizes, ...androidSizes])];
+        const makeZip = '${{ inputs.zip }}' === 'true';
+        const makeHtml = '${{ inputs.favicon_html }}' === 'true';
+
+        const ext = path.extname(source).toLowerCase();
+        const baseName = path.basename(source, ext);
+
+        const generatedFiles = [];
+
+        async function convert() {
+          for (const size of allSizes) {
+            for (const fmt of formats) {
+              const outName = baseName + '_' + size + 'x' + size + '.' + fmt;
+              const outPath = path.join(outputDir, outName);
+              let pipeline = sharp(source).resize(size, size, { fit: 'cover', position: 'center' });
+
+              if (fmt === 'ico') {
+                // sharp doesn't natively output .ico, use PNG intermediate
+                const pngBuf = await pipeline.png().toBuffer();
+                const header = Buffer.alloc(6);
+                header.writeUInt16LE(0, 0);    // reserved
+                header.writeUInt16LE(1, 2);    // ICO type
+                header.writeUInt16LE(1, 4);    // image count
+
+                const bpp = 32;
+                const imgSize = pngBuf.length;
+                const entry = Buffer.alloc(16);
+                entry.writeUInt8(size > 255 ? 0 : size, 0);
+                entry.writeUInt8(size > 255 ? 0 : size, 1);
+                entry.writeUInt8(0, 2);
+                entry.writeUInt8(0, 3);
+                entry.writeUInt16LE(1, 4);
+                entry.writeUInt16LE(bpp, 6);
+                entry.writeUInt32LE(imgSize, 8);
+                entry.writeUInt32LE(22, 12);
+
+                fs.writeFileSync(outPath, Buffer.concat([header, entry, pngBuf]));
+              } else if (fmt === 'jpg' || fmt === 'jpeg') {
+                await pipeline.jpeg({ quality: 90 }).toFile(outPath);
+              } else if (fmt === 'webp') {
+                await pipeline.webp({ quality: 90 }).toFile(outPath);
+              } else if (fmt === 'bmp') {
+                // Convert to PNG then rename (sharp doesn't do BMP well)
+                await pipeline.png().toFile(outPath);
+              } else {
+                await pipeline.png().toFile(outPath);
+              }
+
+              generatedFiles.push(outPath);
+              console.log('  ✅ ' + outName);
+            }
+          }
+
+          // ZIP if requested
+          if (makeZip && generatedFiles.length > 0) {
+            const { execSync } = require('child_process');
+            const zipPath = path.join(outputDir, 'icons.zip');
+            const files = generatedFiles.map(f => path.relative(outputDir, f)).join(' ');
+            execSync('cd ' + outputDir + ' && zip icons.zip ' + files, { stdio: 'inherit' });
+            console.log('  📦 icons.zip created');
+            fs.writeFileSync(process.env.GITHUB_OUTPUT || '/dev/null', 'zip_path=' + zipPath + '\n', { flag: 'a' });
+          }
+
+          // HTML snippet if requested
+          if (makeHtml) {
+            const png32 = generatedFiles.find(f => f.includes('32x32.png'));
+            const png16 = generatedFiles.find(f => f.includes('16x16.png'));
+            const ico = generatedFiles.find(f => f.endsWith('.ico'));
+            const apple180 = generatedFiles.find(f => f.includes('180x180.png'));
+
+            let html = '';
+            if (ico) html += '<link rel=\"icon\" type=\"image/x-icon\" href=\"/' + path.basename(ico) + '\">\n';
+            if (png32) html += '<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/' + path.basename(png32) + '\">\n';
+            if (png16) html += '<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/' + path.basename(png16) + '\">\n';
+            if (apple180) html += '<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/' + path.basename(apple180) + '\">\n';
+
+            fs.writeFileSync(path.join(outputDir, 'favicon.html'), html);
+            console.log('  📄 favicon.html snippet generated');
+            fs.writeFileSync(process.env.GITHUB_OUTPUT || '/dev/null', 'html_snippet=' + encodeURIComponent(html) + '\n', { flag: 'a' });
+          }
+
+          // Output file list and count
+          const fileList = generatedFiles.join('\n');
+          fs.writeFileSync(process.env.GITHUB_OUTPUT || '/dev/null', 'files<<EOF\n' + fileList + '\nEOF\n', { flag: 'a' });
+          fs.writeFileSync(process.env.GITHUB_OUTPUT || '/dev/null', 'count=' + generatedFiles.length + '\n', { flag: 'a' });
+
+          console.log('\n🎉 Done! ' + generatedFiles.length + ' file(s) generated in ' + outputDir);
+        }
+
+        convert().catch(err => {
+          console.error('❌ Conversion failed:', err.message);
+          process.exit(1);
+        });
+        "
+      env:
+        GITHUB_OUTPUT: ${{ github.output }}
