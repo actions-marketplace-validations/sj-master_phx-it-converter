@@ -1,4 +1,4 @@
-# PHX-IT Converter
+# Phoenix Converter
 
 **Free, client-side image to icon converter — no uploads, 100% private.**
 
