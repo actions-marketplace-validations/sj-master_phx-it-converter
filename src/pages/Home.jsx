@@ -8,6 +8,7 @@ import Header from '@/components/converter/Header';
 import DropZone from '@/components/converter/DropZone';
 import FormatSelector, { FORMAT_GROUPS } from '@/components/converter/FormatSelector';
 import ResultsPanel from '@/components/converter/ResultsPanel';
+import QuoteBanner from '@/components/converter/QuoteBanner';
 import { convertImage, downloadBlob } from '@/lib/imageConverter';
 import { createZip } from '@/lib/zipBuilder';
 
@@ -179,11 +180,34 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="text-center mt-16"
+          className="text-center mt-16 pt-8 border-t border-primary/10"
         >
-          <p className="text-xs text-primary/20 font-mono tracking-[0.2em]" style={{ textShadow: '0 0 8px hsl(330 100% 65% / 0.12)' }}>
+          <p className="text-[10px] text-primary/20 font-mono tracking-[0.2em] mb-3" style={{ textShadow: '0 0 8px hsl(330 100% 65% / 0.12)' }}>
             PHX-IT CONVERTER · 100% CLIENT-SIDE · NO UPLOADS · YOUR IMAGES STAY PRIVATE
           </p>
+
+          <div className="space-y-2">
+            <p className="text-sm font-semibold text-foreground/70">
+              &copy; PHX-IT Phoenix
+              <span className="mx-2 text-primary/30">|</span>
+              <span className="text-foreground/50 font-normal">Software &amp; Automation by Skyler Jones</span>
+            </p>
+            <p className="text-xs text-foreground/35 italic max-w-lg mx-auto leading-relaxed">
+              Empowering creators, builders, and digital workflows.
+            </p>
+            <a
+              href="https://buymeacoffee.com/sj.master"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 mt-3 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 text-xs font-medium text-primary/80 hover:bg-primary/10 hover:border-primary/40 transition-all"
+              style={{ boxShadow: '0 0 12px hsl(330 100% 65% / 0.1)' }}
+            >
+              &#9749; Sponsor development or buy me a coffee
+            </a>
+          </div>
+
+          {/* Quote generator */}
+          <QuoteBanner />
         </motion.div>
       </div>
     </div>
