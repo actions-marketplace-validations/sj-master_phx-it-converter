@@ -100,7 +100,27 @@ export default function Home() {
       <div className="fixed top-1/3 right-0 w-[500px] h-[300px] rounded-full pointer-events-none"
         style={{ background: 'radial-gradient(ellipse, hsl(175 100% 55% / 0.035) 0%, transparent 70%)', filter: 'blur(80px)' }} />
 
-      <div className="relative max-w-3xl mx-auto px-4 py-12 sm:py-16">
+      {/* SEO: Hidden structured content for search engines */}
+      <section className="sr-only" aria-hidden="true">
+        <h1>Free ICO &amp; Icon Converter Online — Convert Images to Favicons, PNG, Apple &amp; Android Icons</h1>
+        <p>
+          PHX-IT Converter is a free, client-side icon converter. Convert any image to ICO, favicon, PNG, JPG, WebP, BMP instantly.
+          Supports Apple touch icons, Android app icons, favicons in all sizes (16x16, 32x32, 48x48, 64x64, 128x128, 256x256, 512x512).
+          No file uploads — your images stay private on your device. Bulk download as ZIP. 100% free, no sign-up required.
+        </p>
+        <h2>Key Features</h2>
+        <ul>
+          <li>ICO converter — convert PNG, JPG, WebP to ICO format</li>
+          <li>Favicon generator — create favicons in all standard sizes</li>
+          <li>Apple touch icon maker — 57x57, 60x60, 72x72, 76x76, 114x114, 120x120, 144x144, 152x152, 180x180</li>
+          <li>Android icon generator — 192x192 and 512x512 for Play Store</li>
+          <li>PNG icon resizer — resize to any standard icon dimension</li>
+          <li>Bulk ZIP download — get all converted icons in one file</li>
+          <li>100% client-side — no uploads, instant conversion, fully private</li>
+        </ul>
+      </section>
+
+      <main className="relative max-w-3xl mx-auto px-4 py-12 sm:py-16">
         <Header />
 
         <div className="space-y-8">
@@ -212,7 +232,7 @@ export default function Home() {
           {/* Quote generator */}
           <QuoteBanner />
         </motion.div>
-      </div>
+      </main>
     </div>
   );
 }
