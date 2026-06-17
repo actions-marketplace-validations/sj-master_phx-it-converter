@@ -9,6 +9,7 @@ import DropZone from '@/components/converter/DropZone';
 import FormatSelector, { FORMAT_GROUPS } from '@/components/converter/FormatSelector';
 import ResultsPanel from '@/components/converter/ResultsPanel';
 import QuoteBanner from '@/components/converter/QuoteBanner';
+import EmberParticles from '@/components/converter/EmberParticles';
 import { convertImage, downloadBlob } from '@/lib/imageConverter';
 import { createZip } from '@/lib/zipBuilder';
 
@@ -81,6 +82,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background overflow-hidden">
+      <EmberParticles />
+
       {/* Grid background */}
       <div className="fixed inset-0 pointer-events-none"
         style={{
