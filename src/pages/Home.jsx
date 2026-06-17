@@ -83,18 +83,18 @@ export default function Home() {
       {/* Grid background */}
       <div className="fixed inset-0 pointer-events-none"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(190 100% 50% / 0.06) 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(330 100% 65% / 0.07) 1px, transparent 0)`,
           backgroundSize: '40px 40px'
         }}
       />
 
       {/* Ambient neon glows */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, hsl(190 100% 50% / 0.06) 0%, transparent 70%)', filter: 'blur(60px)' }} />
+        style={{ background: 'radial-gradient(ellipse, hsl(330 100% 65% / 0.07) 0%, transparent 70%)', filter: 'blur(60px)' }} />
       <div className="fixed bottom-0 left-1/4 w-[600px] h-[300px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, hsl(300 100% 55% / 0.04) 0%, transparent 70%)', filter: 'blur(80px)' }} />
+        style={{ background: 'radial-gradient(ellipse, hsl(330 100% 65% / 0.05) 0%, transparent 70%)', filter: 'blur(80px)' }} />
       <div className="fixed top-1/3 right-0 w-[500px] h-[300px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, hsl(190 100% 50% / 0.03) 0%, transparent 70%)', filter: 'blur(80px)' }} />
+        style={{ background: 'radial-gradient(ellipse, hsl(175 100% 55% / 0.035) 0%, transparent 70%)', filter: 'blur(80px)' }} />
 
       <div className="relative max-w-3xl mx-auto px-4 py-12 sm:py-16">
         <Header />
@@ -112,7 +112,7 @@ export default function Home() {
                 exit={{ opacity: 0, height: 0 }}
                 className="overflow-hidden"
               >
-                <div className="bg-card border border-primary/15 rounded-xl p-6" style={{ boxShadow: '0 0 25px hsl(190 100% 50% / 0.05)' }}>
+                <div className="bg-card border border-primary/15 rounded-xl p-6" style={{ boxShadow: '0 0 25px hsl(330 100% 65% / 0.07)' }}>
                   <FormatSelector
                     selectedFormats={selectedFormats}
                     onToggle={handleToggle}
@@ -125,7 +125,7 @@ export default function Home() {
                   <div className="mt-8 flex flex-col items-center gap-4">
                     {isConverting && (
                       <div className="w-full">
-                        <Progress value={progress} className="h-1.5 bg-primary/10 [&>div]:bg-primary" style={{ boxShadow: '0 0 8px hsl(190 100% 50% / 0.1)' }} />
+                        <Progress value={progress} className="h-1.5 bg-primary/10 [&>div]:bg-primary" style={{ boxShadow: '0 0 8px hsl(330 100% 65% / 0.12)' }} />
                         <p className="text-xs text-primary/60 text-center mt-2">
                           Converting... {progress}%
                         </p>
@@ -135,7 +135,7 @@ export default function Home() {
                       onClick={handleConvert}
                       disabled={isConverting || selectedFormats.length === 0}
                       size="lg"
-                      style={{ boxShadow: '0 0 25px hsl(190 100% 50% / 0.35), 0 0 50px hsl(190 100% 50% / 0.12), 0 0 15px hsl(300 100% 55% / 0.2)' }}
+                      style={{ boxShadow: '0 0 25px hsl(330 100% 65% / 0.5), 0 0 50px hsl(330 100% 65% / 0.18), 0 0 20px hsl(175 100% 55% / 0.25)' }}
                       className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground rounded-lg gap-2 font-bold px-10 h-12 transition-all hover:scale-[1.02]"
                     >
                       {isConverting ? (
@@ -162,7 +162,7 @@ export default function Home() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-card border border-primary/20 rounded-xl p-6" style={{ boxShadow: '0 0 30px hsl(190 100% 50% / 0.08)' }}
+                className="bg-card border border-primary/20 rounded-xl p-6" style={{ boxShadow: '0 0 30px hsl(330 100% 65% / 0.1)' }}
               >
                 <ResultsPanel
                   results={results}
@@ -181,7 +181,7 @@ export default function Home() {
           transition={{ delay: 0.5 }}
           className="text-center mt-16"
         >
-          <p className="text-xs text-primary/20 font-mono tracking-[0.2em]" style={{ textShadow: '0 0 8px hsl(190 100% 50% / 0.1)' }}>
+          <p className="text-xs text-primary/20 font-mono tracking-[0.2em]" style={{ textShadow: '0 0 8px hsl(330 100% 65% / 0.12)' }}>
             PHX-IT CONVERTER · 100% CLIENT-SIDE · NO UPLOADS · YOUR IMAGES STAY PRIVATE
           </p>
         </motion.div>

@@ -14,15 +14,15 @@ export default function Header() {
           <div className="absolute -inset-3 rounded-2xl bg-primary/30 blur-xl animate-pulse" />
           <div className="absolute -inset-6 rounded-2xl bg-accent/20 blur-2xl" />
           <div className="relative w-14 h-14 rounded-2xl bg-background border-2 border-primary flex items-center justify-center"
-            style={{ boxShadow: '0 0 30px hsl(190 100% 50% / 0.4), 0 0 60px hsl(190 100% 50% / 0.15), inset 0 0 15px hsl(190 100% 50% / 0.1)' }}
+            style={{ boxShadow: '0 0 30px hsl(330 100% 65% / 0.5), 0 0 60px hsl(330 100% 65% / 0.2), inset 0 0 15px hsl(330 100% 65% / 0.12)' }}
           >
-            <Flame className="w-7 h-7 text-primary" style={{ filter: 'drop-shadow(0 0 8px hsl(190 100% 50% / 0.6))' }} />
+            <Flame className="w-7 h-7 text-primary" style={{ filter: 'drop-shadow(0 0 10px hsl(330 100% 65% / 0.7))' }} />
           </div>
         </div>
         <div className="text-left">
-          <h1 className="text-2xl font-black tracking-tight" style={{ textShadow: '0 0 20px hsl(190 100% 50% / 0.5), 0 0 40px hsl(190 100% 50% / 0.2)' }}>
+          <h1 className="text-2xl font-black tracking-tight" style={{ textShadow: '0 0 20px hsl(330 100% 65% / 0.5), 0 0 40px hsl(330 100% 65% / 0.2)' }}>
             <span className="text-foreground">PHX-IT </span>
-            <span className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent" style={{ filter: 'drop-shadow(0 0 8px hsl(300 100% 55% / 0.5))' }}>
+            <span className="bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent" style={{ filter: 'drop-shadow(0 0 8px hsl(330 100% 65% / 0.6))' }}>
               Converter
             </span>
           </h1>

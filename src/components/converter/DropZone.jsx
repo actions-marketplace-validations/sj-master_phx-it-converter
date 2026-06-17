@@ -45,7 +45,7 @@ export default function DropZone({ onImageLoad, currentImage, onClear }) {
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
-          style={isDragging ? { boxShadow: '0 0 30px hsl(190 100% 50% / 0.3), inset 0 0 30px hsl(190 100% 50% / 0.05)' } : {}}
+          style={isDragging ? { boxShadow: '0 0 30px hsl(330 100% 65% / 0.35), inset 0 0 30px hsl(330 100% 65% / 0.06)' } : {}}
           className={`relative border-2 border-dashed rounded-xl p-12 text-center transition-all duration-300 cursor-pointer group
             ${isDragging
               ? 'border-primary bg-primary/5 scale-[1.02]'
@@ -60,10 +60,10 @@ export default function DropZone({ onImageLoad, currentImage, onClear }) {
                 ? 'bg-primary/15 border-primary/40'
                 : 'bg-primary/[0.04] border-primary/15 group-hover:bg-primary/10 group-hover:border-primary/30'
               }`}
-              style={isDragging ? { boxShadow: '0 0 25px hsl(190 100% 50% / 0.25)' } : {}}
+              style={isDragging ? { boxShadow: '0 0 25px hsl(330 100% 65% / 0.3)' } : {}}
             >
               <Upload className={`w-8 h-8 transition-colors ${isDragging ? 'text-primary' : 'text-primary/50 group-hover:text-primary'}`}
-                style={isDragging ? { filter: 'drop-shadow(0 0 6px hsl(190 100% 50% / 0.5))' } : {}} />
+                style={isDragging ? { filter: 'drop-shadow(0 0 8px hsl(330 100% 65% / 0.6))' } : {}} />
             </div>
             <div>
               <p className="text-lg font-semibold text-foreground">Drop your image here</p>
@@ -84,7 +84,7 @@ export default function DropZone({ onImageLoad, currentImage, onClear }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           className="relative bg-card border border-primary/20 rounded-xl p-6"
-          style={{ boxShadow: '0 0 20px hsl(190 100% 50% / 0.08)' }}
+          style={{ boxShadow: '0 0 20px hsl(330 100% 65% / 0.1)' }}
         >
           <Button
             variant="ghost"
@@ -97,7 +97,7 @@ export default function DropZone({ onImageLoad, currentImage, onClear }) {
           <div className="flex items-center gap-5">
             <div className="w-24 h-24 rounded-xl overflow-hidden bg-background border border-primary/20 flex-shrink-0 flex items-center justify-center"
               style={{
-                boxShadow: '0 0 15px hsl(190 100% 50% / 0.1)',
+                boxShadow: '0 0 15px hsl(330 100% 65% / 0.12)',
                 backgroundImage: 'repeating-conic-gradient(hsl(var(--muted)) 0% 25%, transparent 0% 50%) 50% / 16px 16px'
               }}
             >
@@ -105,7 +105,7 @@ export default function DropZone({ onImageLoad, currentImage, onClear }) {
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <ImageIcon className="w-4 h-4 text-primary" style={{ filter: 'drop-shadow(0 0 4px hsl(190 100% 50% / 0.4))' }} />
+                <ImageIcon className="w-4 h-4 text-primary" style={{ filter: 'drop-shadow(0 0 5px hsl(330 100% 65% / 0.5))' }} />
                 <p className="font-semibold text-foreground truncate">{currentImage.name}</p>
               </div>
               <p className="text-sm text-foreground/50">{currentImage.width} × {currentImage.height}px</p>

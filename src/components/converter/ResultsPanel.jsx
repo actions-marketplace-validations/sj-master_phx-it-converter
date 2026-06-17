@@ -31,14 +31,14 @@ export default function ResultsPanel({ results, onDownloadSingle, onDownloadZip 
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wider" style={{ textShadow: '0 0 10px hsl(190 100% 50% / 0.15)' }}>Converted Files</h3>
-          <Badge className="bg-primary/15 text-primary border-0 text-xs" style={{ boxShadow: '0 0 10px hsl(190 100% 50% / 0.2)' }}>{results.length}</Badge>
+          <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wider" style={{ textShadow: '0 0 10px hsl(330 100% 65% / 0.2)' }}>Converted Files</h3>
+          <Badge className="bg-primary/15 text-primary border-0 text-xs" style={{ boxShadow: '0 0 10px hsl(330 100% 65% / 0.25)' }}>{results.length}</Badge>
         </div>
         <Button
           onClick={handleZip}
           disabled={isZipping}
           className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2 rounded-lg"
-          style={{ boxShadow: '0 0 20px hsl(190 100% 50% / 0.3), 0 0 40px hsl(190 100% 50% / 0.1)' }}
+          style={{ boxShadow: '0 0 20px hsl(330 100% 65% / 0.4), 0 0 40px hsl(330 100% 65% / 0.15)' }}
         >
           {isZipping ? (
             <Loader2 className="w-4 h-4 animate-spin" />
@@ -51,7 +51,7 @@ export default function ResultsPanel({ results, onDownloadSingle, onDownloadZip 
 
       {Object.entries(groupedResults).map(([type, items]) => (
         <div key={type}>
-          <p className="text-xs font-semibold text-primary/50 uppercase tracking-widest mb-2" style={{ textShadow: '0 0 6px hsl(190 100% 50% / 0.08)' }}>{type} Files</p>
+          <p className="text-xs font-semibold text-primary/50 uppercase tracking-widest mb-2" style={{ textShadow: '0 0 6px hsl(330 100% 65% / 0.1)' }}>{type} Files</p>
           <div className="space-y-1.5">
             {items.map((item, i) => (
               <ConvertedItem key={item.id} item={item} index={i} onDownload={onDownloadSingle} />

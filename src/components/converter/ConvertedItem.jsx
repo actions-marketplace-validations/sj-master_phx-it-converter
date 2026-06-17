@@ -18,13 +18,13 @@ export default function ConvertedItem({ item, index, onDownload }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.03 }}
       className="flex items-center justify-between p-3 rounded-lg border border-primary/15 bg-card hover:bg-primary/[0.04] transition-colors group"
-      style={{ boxShadow: '0 0 10px hsl(190 100% 50% / 0.04)' }}
+      style={{ boxShadow: '0 0 10px hsl(330 100% 65% / 0.06)' }}
     >
       <div className="flex items-center gap-3 min-w-0">
         <div
           className="flex-shrink-0 rounded-lg overflow-hidden border border-primary/20 flex items-center justify-center"
-          style={{ boxShadow: '0 0 8px hsl(190 100% 50% / 0.08)' }}
           style={{
+            boxShadow: '0 0 8px hsl(330 100% 65% / 0.1)',
             width: Math.max(32, Math.min(item.size, 48)),
             height: Math.max(32, Math.min(item.size, 48)),
             backgroundImage: 'repeating-conic-gradient(hsl(var(--muted)) 0% 25%, transparent 0% 50%) 50% / 8px 8px'

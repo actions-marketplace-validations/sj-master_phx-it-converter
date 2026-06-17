@@ -64,7 +64,7 @@ export default function FormatSelector({ selectedFormats, onToggle, onToggleGrou
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wider" style={{ textShadow: '0 0 10px hsl(190 100% 50% / 0.15)' }}>Output Formats</h3>
+        <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wider" style={{ textShadow: '0 0 10px hsl(330 100% 65% / 0.2)' }}>Output Formats</h3>
         <div className="flex gap-2">
           <button onClick={onSelectAll} className="text-xs text-primary hover:text-primary/80 font-medium transition-colors">Select All</button>
           <span className="text-primary/30">·</span>
@@ -90,9 +90,9 @@ export default function FormatSelector({ selectedFormats, onToggle, onToggleGrou
                 onCheckedChange={() => onToggleGroup(groupIds, !groupAllSelected)}
                 className="data-[state=checked]:bg-primary data-[state=checked]:border-primary border-primary/30"
               />
-              <span className="text-xs font-semibold text-primary/70 uppercase tracking-widest" style={{ textShadow: '0 0 10px hsl(190 100% 50% / 0.15)' }}>{group.label}</span>
+              <span className="text-xs font-semibold text-primary/70 uppercase tracking-widest" style={{ textShadow: '0 0 10px hsl(330 100% 65% / 0.2)' }}>{group.label}</span>
               {groupSomeSelected && (
-                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 bg-primary/15 text-primary border-0" style={{ boxShadow: '0 0 8px hsl(190 100% 50% / 0.15)' }}>
+                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 bg-primary/15 text-primary border-0" style={{ boxShadow: '0 0 8px hsl(330 100% 65% / 0.2)' }}>
                   {groupIds.filter(id => selectedFormats.includes(id)).length}
                 </Badge>
               )}
@@ -104,7 +104,7 @@ export default function FormatSelector({ selectedFormats, onToggle, onToggleGrou
                   <button
                     key={fmt.id}
                     onClick={() => onToggle(fmt.id)}
-                    style={isSelected ? { boxShadow: '0 0 12px hsl(190 100% 50% / 0.15)' } : {}}
+                    style={isSelected ? { boxShadow: '0 0 12px hsl(330 100% 65% / 0.2)' } : {}}
                     className={`flex items-center gap-2.5 p-2.5 rounded-lg border text-left transition-all duration-200
                       ${isSelected
                         ? 'border-primary/60 bg-primary/10 ring-1 ring-primary/30'
