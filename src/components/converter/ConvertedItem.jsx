@@ -17,11 +17,13 @@ export default function ConvertedItem({ item, index, onDownload }) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.03 }}
-      className="flex items-center justify-between p-3 rounded-xl border border-border bg-card hover:bg-muted/30 transition-colors group"
+      className="flex items-center justify-between p-3 rounded-lg border border-primary/15 bg-card hover:bg-primary/[0.04] transition-colors group"
+      style={{ boxShadow: '0 0 10px hsl(190 100% 50% / 0.04)' }}
     >
       <div className="flex items-center gap-3 min-w-0">
         <div
-          className="flex-shrink-0 rounded-lg overflow-hidden border border-border flex items-center justify-center"
+          className="flex-shrink-0 rounded-lg overflow-hidden border border-primary/20 flex items-center justify-center"
+          style={{ boxShadow: '0 0 8px hsl(190 100% 50% / 0.08)' }}
           style={{
             width: Math.max(32, Math.min(item.size, 48)),
             height: Math.max(32, Math.min(item.size, 48)),
@@ -39,7 +41,7 @@ export default function ConvertedItem({ item, index, onDownload }) {
         </div>
         <div className="min-w-0">
           <p className="text-sm font-medium text-foreground truncate">{item.fileName}</p>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-foreground/40">
             {item.size}×{item.size} · {item.type.toUpperCase()} · {(item.blob.size / 1024).toFixed(1)} KB
           </p>
         </div>
@@ -48,7 +50,8 @@ export default function ConvertedItem({ item, index, onDownload }) {
         size="sm"
         variant={downloaded ? 'default' : 'ghost'}
         onClick={handleDownload}
-        className={`flex-shrink-0 transition-all ${downloaded ? 'bg-green-600 hover:bg-green-600 text-white' : 'text-muted-foreground hover:text-primary'}`}
+        className={`flex-shrink-0 transition-all ${downloaded ? 'bg-emerald-500 hover:bg-emerald-500 text-white' : 'text-foreground/40 hover:text-primary'}`}
+        style={downloaded ? { boxShadow: '0 0 12px hsl(160 100% 50% / 0.3)' } : {}}
       >
         {downloaded ? <Check className="w-4 h-4" /> : <Download className="w-4 h-4" />}
       </Button>

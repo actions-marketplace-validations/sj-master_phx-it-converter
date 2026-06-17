@@ -64,11 +64,11 @@ export default function FormatSelector({ selectedFormats, onToggle, onToggleGrou
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">Output Formats</h3>
+        <h3 className="text-sm font-semibold text-primary/80 uppercase tracking-wider" style={{ textShadow: '0 0 10px hsl(190 100% 50% / 0.15)' }}>Output Formats</h3>
         <div className="flex gap-2">
           <button onClick={onSelectAll} className="text-xs text-primary hover:text-primary/80 font-medium transition-colors">Select All</button>
-          <span className="text-muted-foreground">·</span>
-          <button onClick={onClearAll} className="text-xs text-muted-foreground hover:text-foreground font-medium transition-colors">Clear</button>
+          <span className="text-primary/30">·</span>
+          <button onClick={onClearAll} className="text-xs text-foreground/40 hover:text-foreground font-medium transition-colors">Clear</button>
         </div>
       </div>
 
@@ -88,11 +88,11 @@ export default function FormatSelector({ selectedFormats, onToggle, onToggleGrou
               <Checkbox
                 checked={groupAllSelected}
                 onCheckedChange={() => onToggleGroup(groupIds, !groupAllSelected)}
-                className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                className="data-[state=checked]:bg-primary data-[state=checked]:border-primary border-primary/30"
               />
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">{group.label}</span>
+              <span className="text-xs font-semibold text-primary/70 uppercase tracking-widest" style={{ textShadow: '0 0 10px hsl(190 100% 50% / 0.15)' }}>{group.label}</span>
               {groupSomeSelected && (
-                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 bg-primary/10 text-primary border-0">
+                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 bg-primary/15 text-primary border-0" style={{ boxShadow: '0 0 8px hsl(190 100% 50% / 0.15)' }}>
                   {groupIds.filter(id => selectedFormats.includes(id)).length}
                 </Badge>
               )}
@@ -104,21 +104,22 @@ export default function FormatSelector({ selectedFormats, onToggle, onToggleGrou
                   <button
                     key={fmt.id}
                     onClick={() => onToggle(fmt.id)}
-                    className={`flex items-center gap-2.5 p-2.5 rounded-xl border text-left transition-all duration-200
+                    style={isSelected ? { boxShadow: '0 0 12px hsl(190 100% 50% / 0.15)' } : {}}
+                    className={`flex items-center gap-2.5 p-2.5 rounded-lg border text-left transition-all duration-200
                       ${isSelected
-                        ? 'border-primary/50 bg-primary/5 ring-1 ring-primary/20'
-                        : 'border-border hover:border-muted-foreground/30 hover:bg-muted/50'
+                        ? 'border-primary/60 bg-primary/10 ring-1 ring-primary/30'
+                        : 'border-primary/10 hover:border-primary/30 hover:bg-primary/[0.04]'
                       }`}
                   >
                     <Checkbox
                       checked={isSelected}
-                      className="pointer-events-none data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                      className="pointer-events-none data-[state=checked]:bg-primary data-[state=checked]:border-primary border-primary/30"
                     />
                     <div className="min-w-0">
-                      <p className={`text-xs font-medium truncate ${isSelected ? 'text-foreground' : 'text-muted-foreground'}`}>
+                      <p className={`text-xs font-medium truncate ${isSelected ? 'text-foreground' : 'text-foreground/60'}`}>
                         {fmt.name}
                       </p>
-                      <p className="text-[10px] text-muted-foreground/60">{fmt.desc}</p>
+                      <p className="text-[10px] text-foreground/30">{fmt.desc}</p>
                     </div>
                   </button>
                 );
